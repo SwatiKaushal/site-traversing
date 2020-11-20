@@ -12,19 +12,19 @@ namespace Site_Traversing
 {
    public class Program
     {
-       [STAThread]       // understand meaning 
+       [STAThread]       
         static void Main(string[] args)
         {
-           // entry point
-            Console.WriteLine("site travesing started:");
-            traverse();
+            Console.WriteLine("site traversing started:");
+            string indexUrl = "https://tretton37.com/";
+            traverse(indexUrl);
             Console.ReadLine();
         }
 
-        private static void traverse()
+       //traversing to each folder of website 
+       //and gets the path they are pointing to and downloads them to my disk
+       private static void traverse(string indexUrl)
         {
-            string indexUrl = "https://tretton37.com/";
-
             WebBrowser browser = new WebBrowser();
             browser.Navigate(indexUrl);
 
@@ -33,6 +33,7 @@ namespace Site_Traversing
                 Application.DoEvents();
             } while (browser.ReadyState != WebBrowserReadyState.Complete);
 
+            
             foreach (HtmlElement linkElement in browser.Document.GetElementsByTagName("a"))
             {
                 string pageUrl = linkElement.GetAttribute("href");  
@@ -40,7 +41,7 @@ namespace Site_Traversing
             }
         }
 
-        /// Download a file asynchronously in the desktop path, show the download progress and save it with the original filename.
+        // Download a file asynchronously in the MyDocuments path
         private static void downloadFileAsync(string pageUrl)
         {
             string localPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -53,12 +54,13 @@ namespace Site_Traversing
             }
         }
  
-        ///  Show the progress of the download in a progressbar
+        //  Show the progress of the download in a progressbar
         private static void  wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
         }
 
+       //Handling events asynchronously
         private static void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {     
             if (e.Cancelled)
