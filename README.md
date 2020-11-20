@@ -24,10 +24,10 @@ Attribute [STAThread](while entering into program) is making sure that the threa
 a single-threaded apartment.
 
 
-Steps ro Run the application :
+Steps to run the application :
    1.  git clone https://github.com/SwatiKaushal/site-traversing.git
    2.  cd site-traversing
    3.  Open the solution in Visual Studio 
-   4.  Build and Run the solution and see the progess on console
+   4.  Build and Run the solution and see the progress on console
 
  
